@@ -3,13 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Liste des Restaurants</title>
+    <title>Mes Restaurants Gourmands</title>
     <style>
-        /* Styles Généraux */
+        /* --- BASE CSS (Le look que tu aimais) --- */
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: #f8f9fa;
-            color: #333;
+            font-family: 'Segoe UI', sans-serif;
+            background-color: #f4f7f6;
             margin: 0;
             padding: 20px;
             display: flex;
@@ -17,100 +16,167 @@
             align-items: center;
         }
 
-        h1 {
-            color: #2c3e50;
-            margin-bottom: 30px;
-            font-size: 2.5rem;
-            border-bottom: 3px solid #e74c3c;
-            padding-bottom: 10px;
-        }
+        h1 { color: #2c3e50; border-bottom: 3px solid #e74c3c; padding-bottom: 10px; }
 
-        /* Conteneur des cartes */
-        .restaurant-container {
+        /* --- VUE LISTE (Les cartes) --- */
+        #restaurant-list {
             display: flex;
             flex-wrap: wrap;
-            gap: 25px;
+            gap: 20px;
             justify-content: center;
-            max-width: 1200px;
+            max-width: 1000px;
         }
 
-        /* Style de la Carte Restaurant */
         .restaurant-card {
             background: white;
-            border-radius: 12px;
+            border-radius: 15px;
             box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-            width: 320px;
+            width: 300px;
+            cursor: pointer; /* Montre que c'est cliquable */
+            transition: 0.3s;
             overflow: hidden;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
         }
 
-        .restaurant-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+        .restaurant-card:hover { transform: translateY(-10px); }
+
+        .card-img { width: 100%; height: 180px; object-fit: cover; }
+        .card-content { padding: 15px; }
+
+        /* --- VUE DÉTAILS (La page menu) --- */
+        #details-view {
+            display: none; /* Caché par défaut */
+            background: white;
+            width: 90%;
+            max-width: 800px;
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
         }
 
-        /* Image du restaurant */
-        .restaurant-image {
-            width: 100%;
-            height: 200px;
-            object-fit: cover;
-        }
-
-        /* Contenu textuel de la carte */
-        .restaurant-info {
-            padding: 20px;
-        }
-
-        .restaurant-info h2 {
-            margin: 0 0 10px 0;
-            color: #2c3e50;
-            font-size: 1.4rem;
-        }
-
-        .restaurant-info p {
-            margin: 8px 0;
-            font-size: 0.95rem;
-            line-height: 1.4;
-        }
-
-        .label {
+        .back-btn {
+            background: #e74c3c;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-bottom: 20px;
             font-weight: bold;
-            color: #7f8c8d;
         }
 
-        .stars {
-            color: #f1c40f;
-            font-size: 1.1rem;
+        .menu-section {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 20px;
+            margin-top: 30px;
         }
+
+        .menu-category {
+            background: #fff5f4;
+            padding: 15px;
+            border-radius: 10px;
+            border-left: 5px solid #e74c3c;
+        }
+
+        .menu-category h3 { margin-top: 0; color: #e74c3c; }
+
+        .price { font-weight: bold; color: #27ae60; }
     </style>
 </head>
 <body>
 
-    <h1>🍽️ Liste des restaurants</h1>
+    <h1 id="main-title">🍽️ Liste des restaurants</h1>
 
-    <div class="restaurant-container">
-
-        <div class="restaurant-card">
-            <img class="restaurant-image" src="https://images.unsplash.com/photo-1550966871-3ed3cdb5ed0c?w=500&auto=format&fit=crop" alt="Le Bistrot">
-            <div class="restaurant-info">
+    <div id="restaurant-list">
+        
+        <div class="restaurant-card" onclick="showMenu('bistrot')">
+            <img src="https://images.unsplash.com/photo-1550966871-3ed3cdb5ed0c?w=500" class="card-img" alt="Bistrot">
+            <div class="card-content">
                 <h2>Le Bistrot</h2>
-                <p><span class="label">Adresse :</span> 12 Rue de Marseille, Marseille</p>
-                <p><span class="label">Description :</span> Restaurant traditionnel français avec une ambiance chaleureuse et cuisine maison.</p>
-                <p><span class="label">Avis :</span> <span class="stars">⭐⭐⭐⭐☆</span> (4/5)</p>
+                <p>📍 Marseille</p>
+                <p>⭐ 4/5</p>
             </div>
         </div>
 
-        <div class="restaurant-card">
-            <img class="restaurant-image" src="https://images.unsplash.com/photo-1513104890138-7c749659a591?w=500&auto=format&fit=crop" alt="Pizza Roma">
-            <div class="restaurant-info">
+        <div class="restaurant-card" onclick="showMenu('pizza')">
+            <img src="https://images.unsplash.com/photo-1513104890138-7c749659a591?w=500" class="card-img" alt="Pizza">
+            <div class="card-content">
                 <h2>Pizza Roma</h2>
-                <p><span class="label">Adresse :</span> 5 Avenue d’Italie, Paris</p>
-                <p><span class="label">Description :</span> Pizzas italiennes artisanales cuites au feu de bois avec des produits frais.</p>
-                <p><span class="label">Avis :</span> <span class="stars">⭐⭐⭐⭐⭐</span> (5/5)</p>
+                <p>📍 Paris</p>
+                <p>⭐ 5/5</p>
             </div>
         </div>
 
     </div>
+
+    <div id="details-view">
+        <button class="back-btn" onclick="goBack()">← Retour à la liste</button>
+        
+        <div id="menu-content">
+            </div>
+    </div>
+
+    <script>
+        // On stocke les données des menus ici
+        const data = {
+            'bistrot': {
+                name: "Le Bistrot",
+                description: "Cuisine traditionnelle française faite avec amour.",
+                entree: "Soupe à l'oignon gratinée",
+                plat: "Coq au vin et sa purée maison",
+                dessert: "Crème brûlée à la vanille",
+                prix: "32€"
+            },
+            'pizza': {
+                name: "Pizza Roma",
+                description: "Les meilleures pizzas au feu de bois de la capitale.",
+                entree: "Bruschetta tomate & basilic",
+                plat: "Pizza Regina Royale",
+                dessert: "Tiramisu traditionnel",
+                prix: "24€"
+            }
+        };
+
+        // Fonction pour afficher le menu
+        function showMenu(restaurantKey) {
+            const restaurant = data[restaurantKey];
+            const menuContent = document.getElementById('menu-content');
+            
+            // On remplit le HTML des détails
+            menuContent.innerHTML = `
+                <h1>${restaurant.name}</h1>
+                <p><em>${restaurant.description}</em></p>
+                <hr>
+                <div class="menu-section">
+                    <div class="menu-category">
+                        <h3>Entrée</h3>
+                        <p>${restaurant.entree}</p>
+                    </div>
+                    <div class="menu-category">
+                        <h3>Plat</h3>
+                        <p>${restaurant.plat}</p>
+                    </div>
+                    <div class="menu-category">
+                        <h3>Dessert</h3>
+                        <p>${restaurant.dessert}</p>
+                    </div>
+                </div>
+                <p style="text-align:right; font-size: 1.5rem;">Menu complet : <span class="price">${restaurant.prix}</span></p>
+            `;
+
+            // On cache la liste et on montre les détails
+            document.getElementById('restaurant-list').style.display = 'none';
+            document.getElementById('main-title').style.display = 'none';
+            document.getElementById('details-view').style.display = 'block';
+        }
+
+        // Fonction pour revenir en arrière
+        function goBack() {
+            document.getElementById('restaurant-list').style.display = 'flex';
+            document.getElementById('main-title').style.display = 'block';
+            document.getElementById('details-view').style.display = 'none';
+        }
+    </script>
 
 </body>
 </html>
