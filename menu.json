@@ -7,17 +7,17 @@
       "entree": {
         "nom": "Soupe à l'oignon gratinée",
         "prix": "8€",
-        "image": "https://images.unsplash.com/photo-1620418029653-f7089fa2d890?w=400"
+        "image": "https://images.unsplash.com/photo-1620418029653-f7089fa2d890?w=500&auto=format&fit=crop"
       },
       "plat": {
         "nom": "Une excellente raclette traditionnelle",
         "prix": "18€",
-        "image": "https://images.unsplash.com/photo-1624462966581-bc6d768cbce5?w=400"
+        "image": "https://images.unsplash.com/photo-1701114256227-020df20cc4d4?w=500&auto=format&fit=crop"
       },
       "dessert": {
         "nom": "Crème brûlée à la vanille",
         "prix": "6€",
-        "image": "https://images.unsplash.com/photo-1516685018646-549198525c1b?w=400"
+        "image": "https://images.unsplash.com/photo-1516685018646-549198525c1b?w=500&auto=format&fit=crop"
       }
     }
   },
@@ -29,17 +29,17 @@
       "entree": {
         "nom": "Bruschetta tomate & basilic",
         "prix": "7€",
-        "image": "https://images.unsplash.com/photo-1572656631137-7935297eff55?w=400"
+        "image": "https://images.unsplash.com/photo-1572656631137-7935297eff55?w=500&auto=format&fit=crop"
       },
       "plat": {
         "nom": "Pizza 4 fromages",
         "prix": "14€",
-        "image": "https://images.unsplash.com/photo-1513104890138-7c749659a591?w=400"
+        "image": "https://images.unsplash.com/photo-1513104890138-7c749659a591?w=500&auto=format&fit=crop"
       },
       "dessert": {
         "nom": "Tiramisu traditionnel",
         "prix": "6€",
-        "image": "https://images.unsplash.com/photo-1571877227200-a0d98ea607e9?w=400"
+        "image": "https://images.unsplash.com/photo-1571877227200-a0d98ea607e9?w=500&auto=format&fit=crop"
       }
     }
   }
