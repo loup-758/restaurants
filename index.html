@@ -103,8 +103,9 @@
 
         .dish-img {
             width: 100%;
-            height: 150px;
+            height: 180px; /* Légèrement agrandi pour mieux cadrer */
             object-fit: cover;
+            object-position: center; /* Force le centrage parfait de la photo */
         }
 
         .dish-info {
@@ -123,6 +124,7 @@
             font-size: 1.1rem;
             margin: 5px 0;
             color: var(--primary-color);
+            min-height: 44px; /* Aligne la hauteur si le texte fait deux lignes */
         }
 
         .dish-price {
@@ -144,30 +146,25 @@
     </div>
 
     <script>
-        let restaurantsData = []; // Stockera les données du JSON
+        let restaurantsData = [];
 
-        // 1. Charger le fichier JSON au démarrage
         fetch('menu.json')
             .then(response => response.json())
             .then(data => {
                 restaurantsData = data;
-                renderRestaurants(); // Appelle la fonction pour afficher les cartes
+                renderRestaurants();
             })
             .catch(error => console.error("Erreur de chargement du JSON :", error));
 
-        // 2. Manipulation du DOM pour afficher la liste des restos
         function renderRestaurants() {
             const listContainer = document.getElementById('restaurant-list');
-            listContainer.innerHTML = ''; // On vide le conteneur
+            listContainer.innerHTML = '';
 
             restaurantsData.forEach(restaurant => {
-                // Création de la carte avec le DOM
                 const card = document.createElement('div');
                 card.className = 'restaurant-card';
-                // Quand on clique, on passe l'ID du resto
                 card.onclick = () => showMenu(restaurant.id); 
 
-                // On utilise la première image disponible (l'entrée par exemple) pour la carte
                 card.innerHTML = `
                     <img src="${restaurant.menu.plat.image}" class="card-img" alt="${restaurant.name}">
                     <div class="card-content">
@@ -179,13 +176,10 @@
             });
         }
 
-        // 3. Manipulation du DOM pour afficher le menu d'un restaurant cliqué
         function showMenu(restaurantId) {
-            // On trouve le bon restaurant dans nos données
             const restaurant = restaurantsData.find(r => r.id === restaurantId);
             const menuContent = document.getElementById('menu-content');
             
-            // Construction dynamique du menu avec images et prix par plat
             menuContent.innerHTML = `
                 <h1>${restaurant.name}</h1>
                 <p style="color: #7f8c8d; font-size: 1.2rem;">${restaurant.description}</p>
@@ -220,7 +214,6 @@
                 </div>
             `;
 
-            // On bascule l'affichage
             document.getElementById('restaurant-list').style.display = 'none';
             document.getElementById('main-title').style.display = 'none';
             document.getElementById('details-view').style.display = 'block';
