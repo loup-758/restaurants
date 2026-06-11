@@ -28,8 +28,32 @@
         h1 {
             color: var(--primary-color);
             font-size: 2.5rem;
-            margin-bottom: 40px;
+            margin-bottom: 20px;
             text-align: center;
+        }
+
+        /* --- BARRE DE RECHERCHE --- */
+        .search-container {
+            width: 100%;
+            max-width: 500px;
+            margin-bottom: 40px;
+        }
+
+        .search-input {
+            width: 100%;
+            padding: 15px 20px;
+            font-size: 1.1rem;
+            border: 2px solid #e2e8f0;
+            border-radius: 30px;
+            outline: none;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.02);
+            transition: all 0.3s ease;
+            box-sizing: border-box;
+        }
+
+        .search-input:focus {
+            border-color: var(--accent-color);
+            box-shadow: 0 10px 20px rgba(231, 76, 60, 0.1);
         }
 
         /* --- VUE LISTE --- */
@@ -50,6 +74,8 @@
             cursor: pointer;
             transition: transform 0.3s ease, box-shadow 0.3s ease;
             overflow: hidden;
+            display: flex;
+            flex-direction: column;
         }
 
         .restaurant-card:hover {
@@ -58,8 +84,9 @@
         }
 
         .card-img { width: 100%; height: 220px; object-fit: cover; }
-        .card-content { padding: 24px; }
+        .card-content { padding: 24px; flex-grow: 1; }
         .card-content h2 { margin: 0 0 10px 0; color: var(--primary-color); }
+        .card-content p { color: var(--text-muted); margin: 0; font-size: 0.95rem; }
 
         /* --- VUE DÉTAILS --- */
         #details-view {
@@ -70,6 +97,7 @@
             border-radius: 24px;
             padding: 40px;
             box-shadow: 0 15px 45px rgba(0, 0, 0, 0.07);
+            box-sizing: border-box;
         }
 
         .back-btn {
@@ -85,7 +113,6 @@
 
         .back-btn:hover { background: #e2e8f0; }
 
-        /* Grille des plats avec images */
         .menu-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
@@ -103,40 +130,24 @@
 
         .dish-img {
             width: 100%;
-            height: 180px; /* Légèrement agrandi pour mieux cadrer */
+            height: 180px;
             object-fit: cover;
-            object-position: center; /* Force le centrage parfait de la photo */
+            object-position: center center;
         }
 
-        .dish-info {
-            padding: 15px;
-        }
-
-        .dish-tag {
-            color: var(--accent-color);
-            font-size: 0.8rem;
-            text-transform: uppercase;
-            font-weight: bold;
-            margin: 0;
-        }
-
-        .dish-name {
-            font-size: 1.1rem;
-            margin: 5px 0;
-            color: var(--primary-color);
-            min-height: 44px; /* Aligne la hauteur si le texte fait deux lignes */
-        }
-
-        .dish-price {
-            font-weight: bold;
-            color: #2ecc71;
-            margin: 0;
-        }
+        .dish-info { padding: 15px; }
+        .dish-tag { color: var(--accent-color); font-size: 0.8rem; text-transform: uppercase; font-weight: bold; margin: 0; }
+        .dish-name { font-size: 1.1rem; margin: 5px 0; color: var(--primary-color); min-height: 44px; }
+        .dish-price { font-weight: bold; color: #2ecc71; margin: 0; }
     </style>
 </head>
 <body>
 
     <h1 id="main-title">Liste des restaurants</h1>
+
+    <div class="search-container" id="search-box">
+        <input type="text" id="search-input" class="search-input" placeholder="Rechercher un restaurant, une spécialité..." oninput="filterRestaurants()">
+    </div>
 
     <div id="restaurant-list"></div>
 
@@ -148,19 +159,25 @@
     <script>
         let restaurantsData = [];
 
-        fetch('menu.json')
+        // Utilisation d'un paramètre temporel pour écraser le cache de GitHub Pages
+        fetch('menu.json?t=' + new Date().getTime())
             .then(response => response.json())
             .then(data => {
                 restaurantsData = data;
-                renderRestaurants();
+                renderRestaurants(restaurantsData);
             })
             .catch(error => console.error("Erreur de chargement du JSON :", error));
 
-        function renderRestaurants() {
+        function renderRestaurants(list) {
             const listContainer = document.getElementById('restaurant-list');
             listContainer.innerHTML = '';
 
-            restaurantsData.forEach(restaurant => {
+            if (list.length === 0) {
+                listContainer.innerHTML = `<p style="color: #7f8c8d; font-size: 1.2rem; margin-top: 20px;">Aucun résultat trouvé... 😕</p>`;
+                return;
+            }
+
+            list.forEach(restaurant => {
                 const card = document.createElement('div');
                 card.className = 'restaurant-card';
                 card.onclick = () => showMenu(restaurant.id); 
@@ -169,11 +186,21 @@
                     <img src="${restaurant.menu.plat.image}" class="card-img" alt="${restaurant.name}">
                     <div class="card-content">
                         <h2>${restaurant.name}</h2>
-                        <p style="color: #7f8c8d; margin:0;">${restaurant.description}</p>
+                        <p>${restaurant.description}</p>
                     </div>
                 `;
                 listContainer.appendChild(card);
             });
+        }
+
+        // Fonction d'autocomplétion / filtrage en direct
+        function filterRestaurants() {
+            const query = document.getElementById('search-input').value.toLowerCase().trim();
+            const filtered = restaurantsData.filter(restaurant => {
+                return restaurant.name.toLowerCase().includes(query) || 
+                       restaurant.description.toLowerCase().includes(query);
+            });
+            renderRestaurants(filtered);
         }
 
         function showMenu(restaurantId) {
@@ -216,12 +243,15 @@
 
             document.getElementById('restaurant-list').style.display = 'none';
             document.getElementById('main-title').style.display = 'none';
+            document.getElementById('search-box').style.display = 'none';
             document.getElementById('details-view').style.display = 'block';
+            window.scrollTo(0,0);
         }
 
         function goBack() {
             document.getElementById('restaurant-list').style.display = 'flex';
             document.getElementById('main-title').style.display = 'block';
+            document.getElementById('search-box').style.display = 'block';
             document.getElementById('details-view').style.display = 'none';
         }
     </script>
