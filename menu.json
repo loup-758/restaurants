@@ -46,7 +46,7 @@
   {
     "id": "burger",
     "name": "Le Camion Américain",
-    "description": "Gros burgers gourmets, fait maison .",
+    "description": "Cuisine américaine généreuse, simple et gourmande.",
     "menu": {
       "entree": { "nom": "Onion Rings et des frites", "prix": "6€", "image": "https://plus.unsplash.com/premium_photo-1683121324272-90f4b4084ac9?w=900&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8Q3Jpc3B5JTIwT25pb24lMjBSaW5nc3xlbnwwfHwwfHx8MA%3D%3D" },
       "plat": { "nom": "Smash Burger Double Bacon", "prix": "6€", "image": "https://images.unsplash.com/photo-1713330801172-03f8d1c0dde7?w=900&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8U21hc2glMjBCdXJnZXIlMjBEb3VibGUlMjBCYWNvbnxlbnwwfHwwfHx8MA%3D%3D" },
@@ -106,27 +106,27 @@
   {
     "id": "futuriste",
     "name": "Cyber resto 2077",
-    "description": "Pâtes fraîches maison et sauces italiennes mijotées de longues heures.",
+    "description": "Expérience culinaire futuriste : technologie, design et plats innovants.",
     "menu": {
       "entree": { "nom": "Cocktail 15", "prix": "29€", "image": "https://www.destinationcocktails.fr/wp-content/uploads/2019/11/cocktails_fumants-e1541424344388.jpg" },
-      "plat": { "nom": "multi choix", "prix": "17€", "image": "https://images.unsplash.com/photo-1484723091739-30a097e8f929?w=900&auto=format&fit=crop" },
+      "plat": { "nom": "multi choix", "prix": "17€", "image": "https://t3.ftcdn.net/jpg/07/66/53/08/240_F_766530814_wVQUJKSgoMQ8jHwFI1b8DIYEJ9NHjQVS.jpg" },
       "dessert": { "nom": "vitamine 18", "prix": "5€", "image": "https://t4.ftcdn.net/jpg/17/64/96/39/240_F_1764963945_o5CzLcGVn61UUIcvraa8x8e92Vg9KzHR.jpg" }
     }
   },
   {
     "id": "animal",
-    "name": "Cochonou",
-    "description": "Uniquement du 🐷",
+    "name": "Cochonou 🐷",
+    "description": "Cuisine autour du porc sous toutes ses formes, cuissons lentes et goût intense.",
     "menu": {
       "entree": { "nom": "Rilletes", "prix": "5€", "image": "https://noseychef.com/wp-content/uploads/2020/10/IMG_8503123.jpg" },
-      "plat": { "nom": "saucisses et bacon avec des oeuf brouillés", "prix": "13€", "image": "https://images.unsplash.com/photo-1626804475315-9644b37a2fe4?w=500&auto=format&fit=crop" },
+      "plat": { "nom": "saucisses et bacon avec des oeuf brouillés", "prix": "13€", "image": "https://t3.ftcdn.net/jpg/19/86/46/18/240_F_1986461877_aHIqGxaNkmvYSTLaCL8CTFe6NX5xLzVI.jpg" },
       "dessert": { "nom": "Gateau cochon", "prix": "6€", "image": "https://i.redd.it/0szpk8grto251.jpg" }
     }
   },
   {
     "id": "naturel",
     "name": "Paléo & moi",
-    "description": "Naturel",
+    "description": "Une cuisine basée sur des aliments bruts et naturels : viandes, poissons, légumes, fruits à coque, sans produits transformés ni sucres raffinés. L’objectif est de revenir à une alimentation simple, proche de celle de nos ancêtres",
     "menu": {
       "entree": { "nom": "Assortiments de légumes", "prix": "5€", "image": "https://plus.unsplash.com/premium_photo-1664640733984-cbee33873783?w=900&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NXx8dmVnZXRhYmxlJTIwbWVhbHxlbnwwfHwwfHx8MA%3D%3D" },
       "plat": { "nom": "Boeuf et oeufs", "prix": "7€", "image": "https://www.wholesomeyum.com/wp-content/uploads/2023/01/wholesomeyum-Steak-And-Eggs-19.jpg" },
