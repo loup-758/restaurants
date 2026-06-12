@@ -5,13 +5,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Guide des Meilleurs Restaurants</title>
     <style>
+        /* --- MODE SOMBRE ACTIVÉ --- */
         :root {
-            --primary-color: #2c3e50;
-            --accent-color: #e74c3c;
-            --bg-color: #f8f9fa;
-            --card-bg: #ffffff;
-            --text-main: #333333;
-            --text-muted: #7f8c8d;
+            --primary-color: #f1f2f6;  /* Titres clairs */
+            --accent-color: #e74c3c;   /* Accent rouge conservé */
+            --bg-color: #121212;       /* Fond général très sombre */
+            --card-bg: #1e1e1e;        /* Fond des cartes gris foncé */
+            --text-main: #ffffff;      /* Texte principal blanc */
+            --text-muted: #a0aec0;     /* Texte secondaire gris clair */
         }
 
         body {
@@ -43,17 +44,19 @@
             width: 100%;
             padding: 15px 20px;
             font-size: 1.1rem;
-            border: 2px solid #e2e8f0;
+            border: 2px solid #2d3748;
+            background-color: #2d3748;
+            color: white;
             border-radius: 30px;
             outline: none;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.02);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
             transition: all 0.3s ease;
             box-sizing: border-box;
         }
 
         .search-input:focus {
             border-color: var(--accent-color);
-            box-shadow: 0 10px 20px rgba(231, 76, 60, 0.1);
+            box-shadow: 0 10px 20px rgba(231, 76, 60, 0.2);
         }
 
         /* --- VUE LISTE --- */
@@ -69,7 +72,7 @@
         .restaurant-card {
             background: var(--card-bg);
             border-radius: 16px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
             width: 340px;
             cursor: pointer;
             transition: transform 0.3s ease, box-shadow 0.3s ease;
@@ -80,7 +83,7 @@
 
         .restaurant-card:hover {
             transform: translateY(-8px);
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 20px 40px rgba(231, 76, 60, 0.15);
         }
 
         .card-img { width: 100%; height: 220px; object-fit: cover; }
@@ -96,14 +99,14 @@
             max-width: 850px;
             border-radius: 24px;
             padding: 40px;
-            box-shadow: 0 15px 45px rgba(0, 0, 0, 0.07);
+            box-shadow: 0 15px 45px rgba(0, 0, 0, 0.4);
             box-sizing: border-box;
         }
 
         .back-btn {
             background: transparent;
             color: var(--text-muted);
-            border: 2px solid #e2e8f0;
+            border: 2px solid #2d3748;
             padding: 10px 20px;
             border-radius: 30px;
             cursor: pointer;
@@ -111,7 +114,7 @@
             font-weight: 600;
         }
 
-        .back-btn:hover { background: #e2e8f0; }
+        .back-btn:hover { background: #2d3748; color: white; }
 
         .menu-grid {
             display: grid;
@@ -121,11 +124,11 @@
         }
 
         .dish-card {
-            background: #fff;
+            background: #2d3748;
             border-radius: 12px;
-            border: 1px solid #edf2f7;
+            border: 1px solid #4a5568;
             overflow: hidden;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.02);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
         }
 
         .dish-img {
@@ -159,7 +162,6 @@
     <script>
         let restaurantsData = [];
 
-        // Utilisation d'un paramètre temporel pour écraser le cache de GitHub Pages
         fetch('menu.json?t=' + new Date().getTime())
             .then(response => response.json())
             .then(data => {
@@ -180,7 +182,9 @@
             list.forEach(restaurant => {
                 const card = document.createElement('div');
                 card.className = 'restaurant-card';
-                card.onclick = () => showMenu(restaurant.id); 
+                
+                // Sécurité rajoutée ici : on passe directement tout l'objet restaurant au lieu de l'ID seul
+                card.onclick = () => showMenu(restaurant); 
 
                 card.innerHTML = `
                     <img src="${restaurant.menu.plat.image}" class="card-img" alt="${restaurant.name}">
@@ -193,7 +197,6 @@
             });
         }
 
-        // Fonction d'autocomplétion / filtrage en direct
         function filterRestaurants() {
             const query = document.getElementById('search-input').value.toLowerCase().trim();
             const filtered = restaurantsData.filter(restaurant => {
@@ -203,13 +206,14 @@
             renderRestaurants(filtered);
         }
 
-        function showMenu(restaurantId) {
-            const restaurant = restaurantsData.find(r => r.id === restaurantId);
+        // Modification ici : la fonction prend directement les données du resto, plus de risque d'ID introuvable !
+        function showMenu(restaurant) {
+            if (!restaurant) return;
             const menuContent = document.getElementById('menu-content');
             
             menuContent.innerHTML = `
                 <h1>${restaurant.name}</h1>
-                <p style="color: #7f8c8d; font-size: 1.2rem;">${restaurant.description}</p>
+                <p style="color: #a0aec0; font-size: 1.2rem;">${restaurant.description}</p>
                 
                 <div class="menu-grid">
                     <div class="dish-card">
